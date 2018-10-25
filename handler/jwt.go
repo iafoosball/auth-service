@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
-	"github.com/iafoosball/auth-service/crypto"
+	"github.com/iafoosball/auth-service/rs256"
 	"github.com/iafoosball/auth-service/model"
+	"github.com/iafoosball/auth-service/jwt"
 	"net/http"
 	"time"
 )
@@ -14,6 +15,10 @@ import (
 type JWTClaims struct {
 	Username string `json:"username"`
 	jwt.StandardClaims
+}
+
+type JWT struct {
+	Token string `json:"token,omitempty"`
 }
 
 func JWT(w http.ResponseWriter, r *http.Request) {
@@ -35,7 +40,7 @@ func JWT(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
 	}
 
-	//fmt.Print(validation.JWTisValid(token))
+	fmt.Print(jwt.JWTisValid(token+"lol", "test"))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
@@ -55,8 +60,11 @@ func signedJWT(username string) (string, error) {
 	//if err != nil {
 	//	return "", err
 	//}
-
-	token, err := rawToken.SignedString(crypto.ReadPrivateKey("./crypto/privateKey"))
+	rsaKey, err := rs256.ReadPrivateKey("./id_rsa", "test")
+	if err != nil {
+		return "", err
+	}
+	token, err := rawToken.SignedString(rsaKey)
 	if err != nil {
 		fmt.Print(err)
 		return "", err
