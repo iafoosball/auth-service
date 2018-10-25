@@ -17,7 +17,7 @@ type Token struct {
 	Token string `json:"access_token,omitempty"`
 }
 
-// SetRoutes lo
+// SetRoutes lol
 func SetRoutes(r *mux.Router) *mux.Router {
 	r.HandleFunc(AuthJWTTokenPath, handleJWT).Methods("POST")
 	return r
@@ -44,7 +44,6 @@ func handleJWT(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
 	}
 
-	fmt.Print((jwt.ValidateSignature(token, "./id_rsa_pub","test")))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
