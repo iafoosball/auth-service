@@ -9,11 +9,13 @@ import (
 )
 
 type Claims struct {
-	Username string
+	Username string `json:"usr,omitempty"`
 	jwt.StandardClaims
 }
 
-func Sign(username string) (string, error) {
+// NewSigned creates new JWT token signed with RSA private key, located at pathToPriv.
+// Private key must be PEM encoded and password protected using AES256 CBC algorithm.
+func NewSigned(username string, pathToPriv string, password string) (string, error) {
 	jti, err := rand.RuneSequence(10, rand.AlphaUpperNum)
 	if err != nil {
 		return "", err
@@ -26,7 +28,7 @@ func Sign(username string) (string, error) {
 		},
 	}
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodRS256, c)
-	rsaKey, err := rs256.ReadPrivateKey("./id_rsa", "test")
+	rsaKey, err := rs256.ReadPrivateKey(pathToPriv, password)
 	if err != nil {
 		return "", err
 	}

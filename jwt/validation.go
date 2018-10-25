@@ -7,13 +7,13 @@ import (
 )
 
 // ValidateSignature allows to verify RSA signed JWT using public SHA256 key saved on local disk.
-// Public key must be PEM encoded and password protected using AES256 CBC algorithm.
-func ValidateSignature(token string, pathToFile string, password string) bool {
+// Public key at location pathToPub must be PEM encoded and password protected using AES256 CBC algorithm.
+func ValidateSignature(token string, pathToPub string, password string) bool {
 	parsed, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			return nil, errors.New("Wrong ALG in JWT")
 		}
-		pubKey, err := rs256.ReadPublicKey(pathToFile, password)
+		pubKey, err := rs256.ReadPublicKey(pathToPub, password)
 		if err != nil {
 			return nil, err
 		}
