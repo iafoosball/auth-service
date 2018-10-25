@@ -8,7 +8,7 @@ import (
 
 type Validator struct {
 	PathToPublicKey string
-	Password string
+	Password        string
 }
 
 // ValidateSignature allows to verify RSA signed JWT using public SHA256 key saved on local disk.

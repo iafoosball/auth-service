@@ -49,5 +49,3 @@ func WriteKeyToFile(keyBytes []byte, saveToFile string) error {
 	err := ioutil.WriteFile(saveToFile, keyBytes, 0600)
 	return err
 }
-
-

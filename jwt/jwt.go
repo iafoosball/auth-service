@@ -23,7 +23,7 @@ func NewSigned(username string, pathToPriv string, password string) (string, err
 	c := Claims{
 		username,
 		jwt.StandardClaims{
-			Id: string(jti),
+			Id:        string(jti),
 			ExpiresAt: time.Now().Add(24 * time.Hour).Unix(),
 		},
 	}

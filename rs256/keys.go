@@ -26,8 +26,8 @@ func PrivateKeyToPEM(key *rsa.PrivateKey, password string) ([]byte, error) {
 	// needs to marshal into ASN.1 DER format
 	asnKey := x509.MarshalPKCS1PrivateKey(key)
 	block := &pem.Block{
-		Type:    "RSA PRIVATE KEY",
-		Bytes:   asnKey,
+		Type:  "RSA PRIVATE KEY",
+		Bytes: asnKey,
 	}
 
 	encrypted, err := x509.EncryptPEMBlock(
@@ -50,7 +50,7 @@ func GeneratePublicKeyPEM(privKey *rsa.PrivateKey, password string) ([]byte, err
 		return nil, err
 	}
 	block := &pem.Block{
-		Type: "RSA PUBLIC KEY",
+		Type:  "RSA PUBLIC KEY",
 		Bytes: asnKey,
 	}
 

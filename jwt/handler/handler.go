@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	AuthJWTTokenPath = "/auth/token"
+	AuthJWTTokenPath    = "/auth/token"
 	PathToRSAPrivateKey = "./id_rsa"
 )
 
@@ -47,5 +47,3 @@ func handleJWT(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
-
-

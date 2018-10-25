@@ -23,21 +23,11 @@ func makeRSAKeysToDisk(password string, pathToDir string) error {
 	if err != nil {
 		return err
 	}
-	rs256.WriteKeyToFile(keyPEM, pathToDir + "/id_rsa")
+	rs256.WriteKeyToFile(keyPEM, pathToDir+"/id_rsa")
 	publicKey, err := rs256.GeneratePublicKeyPEM(privateKey, password)
 	if err != nil {
 		return err
 	}
-	rs256.WriteKeyToFile(publicKey, pathToDir + "/id_rsa_pub")
+	rs256.WriteKeyToFile(publicKey, pathToDir+"/id_rsa_pub")
 	return err
 }
-
-
-
-
-
-
-
-
-
-

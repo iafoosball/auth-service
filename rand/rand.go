@@ -1,8 +1,8 @@
 package rand
 
 import (
-"crypto/rand"
-"math/big"
+	"crypto/rand"
+	"math/big"
 )
 
 var rander = rand.Reader // random function
