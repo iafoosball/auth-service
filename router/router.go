@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/iafoosball/auth-service/handler"
+	"github.com/iafoosball/auth-service/jwt/handler"
 )
 
 const (

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/iafoosball/auth-service/router"
+	"github.com/iafoosball/auth-service/jwt/handler"
 	"github.com/iafoosball/auth-service/rs256"
 	"net/http"
 )
@@ -10,7 +10,7 @@ import (
 func main() {
 	makeRSAKeysToDisk("test", "./")
 	r := mux.NewRouter()
-	router.SetRoutes(r)
+	r = handler.SetRoutes(r)
 	http.ListenAndServe(":8001", r)
 }
 
