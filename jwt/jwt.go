@@ -62,7 +62,10 @@ func IssueNew(username string, password string) (JWT, error) {
 		return JWT{}, err
 	}
 
-	_, err = redis.Perform("SET", token.ID, username)
+	r, err := redis.SET(token.ID, username, token.TTL)
+	if r == nil {
+		panic("token with that ID was already registered")
+	}
 	if err != nil {
 		fmt.Print(err)
 		return JWT{}, err

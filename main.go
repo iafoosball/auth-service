@@ -20,8 +20,18 @@ func main() {
 	//r = social.SetRoutes(r)
 	//http.ListenAndServe(":" + port, r)
 
-	// SET, GET, DEL
-	r, err := redis.Perform("SET", "lol", "lol")
+	//SET <OK, nil>
+	r, err := redis.SET("lodl", "bet", 1000)
 	fmt.Println(r)
 	fmt.Println(err)
-}
+	//returns []uint8, <nil if not found>
+	//r, _ := redis.GET("lodl")
+	//if r != nil {
+	//	fmt.Println(string(r.([]byte)))
+	//}
+	// 0 is not found, 1 if deleted
+	//r, _ = redis.DEL("lodl")
+	//fmt.Println(r)
+	//r, _ = redis.GET("lol")
+	//fmt.Println(r)
+	}
