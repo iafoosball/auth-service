@@ -7,9 +7,32 @@ import (
 	"io/ioutil"
 )
 
+const (
+	PathToRSAPriv = "./rs256/keys/id_rsa"
+	PathToRSAPub  = "./rs256/keys/id_rsa_pub"
+)
+
+func MakeRSAKeysToDisk(password string) error {
+	privateKey, err := GeneratePrivateKey(1024)
+	if err != nil {
+		return err
+	}
+	keyPEM, err := PrivateKeyToPEM(privateKey, password)
+	if err != nil {
+		return err
+	}
+	WriteKeyToFile(keyPEM, PathToRSAPriv)
+	publicKey, err := GeneratePublicKeyPEM(privateKey, password)
+	if err != nil {
+		return err
+	}
+	WriteKeyToFile(publicKey, PathToRSAPub)
+	return err
+}
+
 // ReadPrivateKey reads PEM encoded file, decrypts is with password and parses as RSA private key.
-func ReadPrivateKey(path string, password string) (*rsa.PrivateKey, error) {
-	file, err := ioutil.ReadFile(path)
+func ReadPrivateKey(password string) (*rsa.PrivateKey, error) {
+	file, err := ioutil.ReadFile(PathToRSAPriv)
 	if err != nil {
 		return nil, err
 	}
@@ -26,8 +49,8 @@ func ReadPrivateKey(path string, password string) (*rsa.PrivateKey, error) {
 }
 
 // ReadPublicKey reads PEM encoded file, decrypts is with password and parses as SHA256 public key.
-func ReadPublicKey(path string, password string) (*rsa.PublicKey, error) {
-	file, err := ioutil.ReadFile(path)
+func ReadPublicKey(password string) (*rsa.PublicKey, error) {
+	file, err := ioutil.ReadFile(PathToRSAPub)
 	if err != nil {
 		return nil, err
 	}

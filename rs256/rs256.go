@@ -43,7 +43,7 @@ func PrivateKeyToPEM(key *rsa.PrivateKey, password string) ([]byte, error) {
 	return pemKey, err
 }
 
-//GeneratePublicKeyPEM fetches public key from RSA private key, encrypts it with password and encodes the result to PEM format.
+// GeneratePublicKeyPEM fetches public key from RSA private key, encrypts it with password and encodes the result to PEM format.
 func GeneratePublicKeyPEM(privKey *rsa.PrivateKey, password string) ([]byte, error) {
 	asnKey, err := x509.MarshalPKIXPublicKey(&privKey.PublicKey)
 	if err != nil {
