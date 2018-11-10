@@ -27,4 +27,5 @@ restapi/embedded_spec.go
 restapi/server.go
 
 # RSASHA256 priv/pub keys
-rs256/keys/
+id_rsa
+id_rsa_pub
