@@ -48,7 +48,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	// When created:
 
 	// return JWT with valid username (currently user has to be registered with same username as in google)
-	token, err := jwt.IssueNew(user.Email, "test")
+	token, err := jwt.IssueNew(user.Email)
 	handleErr(err, w)
 
 	payload, err := json.Marshal(token)
