@@ -6,21 +6,21 @@ import (
 	"gopkg.in/danilopolani/gocialite.v0"
 )
 
-const port = "8001"
-const redirectURL = "http://localhost:8001"
+const baseURL = "http://localhost:8001"
 
 var gocial = gocialite.NewDispatcher()
 
+// These credentials are old and revoked, please don't try to use them. Thanks!
 var providerSecrets = map[string]map[string]string{
 	"facebook": {
 		"clientID":     "111235093157542",
 		"clientSecret": "2be6078a12fe8b1eecc89c6dea8b949c",
-		"redirectURL":  redirectURL + "/auth/facebook/callback",
+		"baseURL":  baseURL + "/auth/facebook/callback",
 	},
 	"google": {
 		"clientID":     "659698836120-dosqs9rtc1p8eqcnl2qdmjpu1ujef9l9.apps.googleusercontent.com",
 		"clientSecret": "6LaVZkuC01sQm9dq4a_laVfo",
-		"redirectURL":  redirectURL + "/auth/google/callback",
+		"baseURL":  baseURL + "/auth/google/callback",
 	},
 }
 
@@ -39,7 +39,7 @@ func RedirectURL(provider string) (string, error) {
 		Redirect(
 			providerData["clientID"],
 			providerData["clientSecret"],
-			providerData["redirectURL"],
+			providerData["baseURL"],
 		)
 
 	return authURL, err
