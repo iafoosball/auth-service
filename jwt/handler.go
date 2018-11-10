@@ -9,16 +9,16 @@ import (
 )
 
 const (
-	LoginPath = "/oauth/login"
-	LogoutPath = "/oauth/logout"
-	ValidateTokenPath = "/oauth/validate"
+	LoginPath         = "/oauth/login"
+	LogoutPath        = "/oauth/logout"
+	ValidateTokenPath = "/oauth/verify"
 )
 
 // SetRoutes sets endpoints on a router
 func SetRoutes(r *mux.Router) *mux.Router {
 	r.HandleFunc(LoginPath, handleLogin).Methods("POST")
 	r.HandleFunc(LogoutPath, handleLogout).Methods("POST")
-	r.HandleFunc(ValidateTokenPath, handleValidation).Methods("POST")
+	r.HandleFunc(ValidateTokenPath, handleVerify).Methods("POST")
 	return r
 }
 
@@ -51,26 +51,32 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err := Revoke(s[1])
-	if err.Error() == "not found" {
-		w.WriteHeader(404)
-	} else {
-		handleErr(err, w)
-	}
 
-	w.WriteHeader(200)
+	if err != nil {
+		if err.Error() == "not found" {
+			w.WriteHeader(404)
+		} else {
+			handleErr(err, w)
+		}
+	} else {
+		w.WriteHeader(200)
+	}
 }
 
-func handleValidation(w http.ResponseWriter, r *http.Request) {
+func handleVerify(w http.ResponseWriter, r *http.Request) {
 	s := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
-
-	v, err := IsValid(s[1])
-	handleErr(err, w)
-
-	if len(s) != 2 && s[0] != "JWT" && !v {
+	if len(s) != 2 && s[0] != "JWT" {
 		w.WriteHeader(401)
 	}
 
-	w.WriteHeader(200)
+	ok, err := IsValid(s[1])
+	handleErr(err, w)
+
+	if !ok {
+		w.WriteHeader(401)
+	} else {
+		w.WriteHeader(200)
+	}
 }
 
 // handleErr that requires generic handling (usually unexpected errors)

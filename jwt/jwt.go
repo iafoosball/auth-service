@@ -10,10 +10,11 @@ import (
 	"time"
 )
 
-// these should definitely be in some sort of secret datastore
+// these should definitely be in secret datastore
 const (
 	PrivKeyPassphrase = "test"
-	PubKeyPassphrase = "test"
+	PubKeyPassphrase  = "test"
+	TokenTTL          = 24 * time.Hour
 )
 
 type Claims struct {
@@ -43,9 +44,9 @@ func IssueNew(username string) (JWT, error) {
 		fmt.Print(err)
 		return JWT{}, err
 	}
-
 	return token, err
 }
+
 // Revoke token from redis db.
 func Revoke(token string) error {
 	claims := jwt.MapClaims{}
@@ -54,9 +55,9 @@ func Revoke(token string) error {
 		return err
 	}
 
-	tid := claims["ID"]
+	tid := claims["jti"]
 	r, err := redis.DEL(tid.(string))
-	if r.(int) == 0 {
+	if r.(int64) == 0 {
 		return errors.New("not found")
 	}
 	return nil
@@ -65,13 +66,13 @@ func Revoke(token string) error {
 // IsValid verifies whether token is properly signed and issued by auth-service.
 func IsValid(token string) (bool, error) {
 	claims := jwt.MapClaims{}
-	_, err := jwt.ParseWithClaims(token, claims, keyFunc)
-	if err != nil {
+	p, err := jwt.ParseWithClaims(token, claims, keyFunc)
+	if err != nil && !p.Valid {
 		return false, err
 	}
 
-	tid := claims["ID"]
-	r, err := redis.DEL(tid.(string))
+	tid := claims["jti"]
+	r, err := redis.GET(tid.(string))
 	if err != nil {
 		return false, err
 	}
@@ -87,7 +88,7 @@ func IsValid(token string) (bool, error) {
 // Private key must be PEM encoded and password protected using AES256 CBC algorithm.
 func newSigned(username string) (JWT, error) {
 	jti, err := rand.RuneSequence(10, rand.AlphaUpperNum)
-	now := time.Now().Add(24 * time.Hour).Unix()
+	ttl := time.Now().Add(TokenTTL).Unix()
 	if err != nil {
 		return JWT{}, err
 	}
@@ -95,7 +96,7 @@ func newSigned(username string) (JWT, error) {
 		username,
 		jwt.StandardClaims{
 			Id:        string(jti),
-			ExpiresAt: now,
+			ExpiresAt: ttl,
 		},
 	}
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodRS256, c)
@@ -112,7 +113,7 @@ func newSigned(username string) (JWT, error) {
 	token := JWT{
 		Token: tokenString,
 		ID:    string(jti),
-		TTL:   now,
+		TTL:   ttl,
 	}
 	return token, nil
 }
