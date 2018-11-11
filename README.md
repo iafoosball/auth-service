@@ -35,29 +35,29 @@ GET /oauth/google
 * Login with Basic Auth (issue token)
 ```bash
 curl -X POST \
-  http://localhost:8001/oauth/login \
+  http://iafoosball.dk/oauth/login \
   -H 'Authorization: Basic dnlyd3U6dnlyd3U='
 ```
 * Login with FB/Google
 ```bash
 curl -X GET \
-  http://localhost:8001/oauth/facebook
+  http://iafoosball.dk/oauth/facebook
   
   or
   
 curl -X GET \
-  http://localhost:8001/oauth/google
+  http://iafoosball.dk/oauth/google
 ```
 * Verify JWT
 ```bash
 curl -X POST \
-  http://localhost:8001/oauth/verify \
+  http://iafoosball.dk/oauth/verify \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 * Logout aka. revoke token
 ```bash
 curl -X POST \
-  http://localhost:8001/oauth/logout \
+  http://iafoosball.dk/oauth/logout \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 
