@@ -87,7 +87,7 @@ func IsValid(token string) (bool, error) {
 // newSigned creates new JWT token signed with RSA private key, protected with password.
 // Private key must be PEM encoded and password protected using AES256 CBC algorithm.
 func newSigned(username string) (JWT, error) {
-	jti, err := rand.RuneSequence(10, rand.AlphaUpperNum)
+	jti, err := rand.RuneSequence(10, rand.AlphaNum)
 	ttl := time.Now().Add(TokenTTL).Unix()
 	if err != nil {
 		return JWT{}, err
