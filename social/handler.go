@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	SocialLoginPath         = "/auth/{provider}"
-	SocialLoginCallbackPath = "/auth/{provider}/callback"
+	SocialLoginPath         = "/oauth/{provider}"
+	SocialLoginCallbackPath = "/oauth/{provider}/callback"
 )
 
 // SetRoutes sets endpoints on a router
