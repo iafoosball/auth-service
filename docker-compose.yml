@@ -1,0 +1,35 @@
+version: '3'
+services:
+  auth-service:
+    container_name: iafoosball_auth-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+    ports:
+      - "8001:8001"
+    environment:
+      REDIS_URL: "redis:6379"
+      AUTH_PORT: "8001"
+    volumes:
+    - .:/go/src/iafoosball/auth-service
+    working_dir: /go/src/iafoosball/auth-service
+    command: go run main.go
+
+  redis:
+    container_name: iafoosball_redis
+    image: redis:5.0.0-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    expose:
+      - "6379"
+    hostname: redis
+    volumes:
+    - $HOME/iafoosball/stag/redis:/var/lib/redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 2m
+      timeout: 10s
+      retries: 3

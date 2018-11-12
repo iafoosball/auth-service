@@ -5,8 +5,9 @@
 *.so
 *.dylib
 
-# Test binary, build with `go test -c`
+# Binaries, build with `go test -c` and `go build`
 *.test
+auth-service
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
@@ -15,16 +16,8 @@
 .idea/
 .vscode/
 
-# go-dep dependencies
+# vendor dependencies
 vendor/
-
-# swagger codegen
-cmd/
-models/
-restapi/operations
-restapi/doc.go
-restapi/embedded_spec.go
-restapi/server.go
 
 # RSASHA256 priv/pub keys
 rs256/keys
