@@ -6,14 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     links:
-      - redis:redis
+      - redis
     depends_on:
       - redis
     ports:
-      - "8001:8001"
+      - 8001:8001
     environment:
       REDIS_ADDR: "redis:6379"
-      AUTH_ADDR: "localhost:8001"
+      AUTH_ADDR: "0:0:0:0:8001"
 
   redis:
     container_name: iafoosball_redis

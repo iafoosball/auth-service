@@ -13,7 +13,7 @@ func TestSetRoutes(t *testing.T) {
 
 func testRedirect(provider string, t *testing.T) {
 	client := http.DefaultClient
-	req, err := http.NewRequest("GET", "http://localhost:8001/oauth/" + provider, nil)
+	req, err := http.NewRequest("GET", "http://localhost:8001/oauth/"+provider, nil)
 	if err != nil {
 		t.Error(err)
 	}
