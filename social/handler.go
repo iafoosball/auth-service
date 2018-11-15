@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/iafoosball/auth-service/jwt"
+	"log"
 	"net/http"
 )
 
@@ -23,10 +24,7 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	provider := mux.Vars(r)["provider"]
 
 	authURL, err := RedirectURL(provider)
-
-	if err != nil {
-		w.Write([]byte("Error: " + err.Error()))
-	}
+	handleErr(err, w)
 
 	http.Redirect(w, r, authURL, http.StatusFound)
 }
@@ -61,7 +59,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 // handleErr that requires generic handling (usually unexpected errors)
 func handleErr(err error, w http.ResponseWriter) {
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		log.Println("social/handler.go: Error " + err.Error())
 		w.WriteHeader(500)
 	}
 }

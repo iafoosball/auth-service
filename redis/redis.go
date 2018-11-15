@@ -11,7 +11,7 @@ var redisPool = &redis.Pool{
 	Dial: func() (redis.Conn, error) {
 		var addr string
 		if addr = os.Getenv("REDIS_ADDR"); addr == "" {
-			addr = "localhost:6379"
+			addr = "redis:6379"
 		}
 		c, err := redis.Dial("tcp", addr)
 		if err != nil {
