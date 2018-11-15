@@ -9,7 +9,11 @@ var redisPool = &redis.Pool{
 	MaxIdle:   10,
 	MaxActive: 100,
 	Dial: func() (redis.Conn, error) {
-		c, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
+		var addr string
+		if addr = os.Getenv("PORT"); addr == "" {
+			addr = "redis:6379"
+		}
+		c, err := redis.Dial("tcp", addr)
 		if err != nil {
 			panic(err.Error())
 		}

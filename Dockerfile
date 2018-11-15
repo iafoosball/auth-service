@@ -16,3 +16,4 @@ ADD . .
 
 RUN go mod verify
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o auth-service
+CMD ["./auth-service"]
