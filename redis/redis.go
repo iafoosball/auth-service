@@ -2,13 +2,18 @@ package redis
 
 import (
 	"github.com/gomodule/redigo/redis"
+	"os"
 )
 
 var redisPool = &redis.Pool{
 	MaxIdle:   10,
 	MaxActive: 100,
 	Dial: func() (redis.Conn, error) {
-		c, err := redis.Dial("tcp", "localhost:6379")
+		var addr string
+		if addr = os.Getenv("REDIS_ADDR"); addr == "" {
+			addr = "redis:6379"
+		}
+		c, err := redis.Dial("tcp", addr)
 		if err != nil {
 			panic(err.Error())
 		}

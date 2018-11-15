@@ -15,12 +15,12 @@ var providerSecrets = map[string]map[string]string{
 	"facebook": {
 		"clientID":     "111235093157542",
 		"clientSecret": "2be6078a12fe8b1eecc89c6dea8b949c",
-		"baseURL":  baseURL + "/auth/facebook/callback",
+		"baseURL":      baseURL + "/auth/facebook/callback",
 	},
 	"google": {
 		"clientID":     "659698836120-dosqs9rtc1p8eqcnl2qdmjpu1ujef9l9.apps.googleusercontent.com",
 		"clientSecret": "6LaVZkuC01sQm9dq4a_laVfo",
-		"baseURL":  baseURL + "/auth/google/callback",
+		"baseURL":      baseURL + "/auth/google/callback",
 	},
 }
 

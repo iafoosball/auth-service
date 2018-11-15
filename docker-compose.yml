@@ -1,0 +1,32 @@
+version: '3'
+services:
+  auth-service:
+    container_name: iafoosball_auth-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - 8001:8001
+    environment:
+      REDIS_ADDR: "redis:6379"
+      AUTH_ADDR: "0.0.0.0:8001"
+    restart: on-failure
+
+  redis:
+    container_name: iafoosball_redis
+    image: redis:5.0.0-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - 6379
+    volumes:
+    - $HOME/iafoosball/stag/redis:/var/lib/redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+    restart: on-failure

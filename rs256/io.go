@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	PathToRSAPriv = "./rs256/keys/id_rsa"
-	PathToRSAPub  = "./rs256/keys/id_rsa_pub"
+	PathToRSAPriv = "./rs256/id_rsa"
+	PathToRSAPub  = "./rs256/id_rsa_pub"
 )
 
 func MakeRSAKeysToDisk(password string) error {

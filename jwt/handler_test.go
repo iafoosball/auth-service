@@ -36,7 +36,7 @@ func TestSetRoutes(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	req.Header.Set("Authorization", "JWT " + st)
+	req.Header.Set("Authorization", "JWT "+st)
 
 	resp, err = client.Do(req)
 	if err != nil {
@@ -51,7 +51,7 @@ func TestSetRoutes(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	req.Header.Set("Authorization", "JWT " + st)
+	req.Header.Set("Authorization", "JWT "+st)
 
 	resp, err = client.Do(req)
 	if err != nil {
@@ -66,7 +66,7 @@ func TestSetRoutes(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	req.Header.Set("Authorization", "JWT " + st)
+	req.Header.Set("Authorization", "JWT "+st)
 
 	resp, err = client.Do(req)
 	if err != nil {
@@ -77,5 +77,3 @@ func TestSetRoutes(t *testing.T) {
 		t.Fail()
 	}
 }
-
-
