@@ -10,10 +10,10 @@ services:
     depends_on:
       - redis
     ports:
-      - 8001:8001
+      - 8070:8070
     environment:
-      REDIS_ADDR: "redis:6379"
-      AUTH_ADDR: "0.0.0.0:8001"
+      DB_ADDR: "redis:6379"
+      SERVICE_ADDR: "0.0.0.0:8070"
     restart: on-failure
 
   redis:
