@@ -5,20 +5,25 @@ import (
 	"os"
 )
 
+
 var redisPool = &redis.Pool{
 	MaxIdle:   10,
 	MaxActive: 100,
 	Dial: func() (redis.Conn, error) {
-		var addr string
-		if addr = os.Getenv("REDIS_ADDR"); addr == "" {
-			addr = "redis:6379"
-		}
-		c, err := redis.Dial("tcp", addr)
+		c, err := redis.Dial("tcp", DB_ADDR())
 		if err != nil {
 			panic(err.Error())
 		}
 		return c, err
 	},
+}
+
+func DB_ADDR() string {
+	var addr string
+	if addr = os.Getenv("DB_ADDR"); addr == "" {
+		addr = "localhost:6379"
+	}
+	return addr
 }
 
 func perform(fn func(c redis.Conn) (interface{}, error)) (interface{}, error) {

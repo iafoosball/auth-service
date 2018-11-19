@@ -11,18 +11,10 @@ import (
 	"os"
 )
 
-func AUTH_ADDR() string {
+func SERVICE_ADDR() string {
 	var addr string
-	if addr = os.Getenv("AUTH_ADDR"); addr == "" {
+	if addr = os.Getenv("SERVICE_ADDR"); addr == "" {
 		addr = "localhost:8001"
-	}
-	return addr
-}
-
-func REDIS_ADDR() string {
-	var addr string
-	if addr = os.Getenv("REDIS_ADDR"); addr == "" {
-		addr = "localhost:6379"
 	}
 	return addr
 }
@@ -33,7 +25,7 @@ func main() {
 	r := mux.NewRouter()
 	r = jwt.SetRoutes(r)
 	r = social.SetRoutes(r)
-	http.ListenAndServe(AUTH_ADDR(), r)
+	http.ListenAndServe(SERVICE_ADDR(), r)
 }
 
 func initRSA(pathToKey string) {
