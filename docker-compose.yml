@@ -30,3 +30,8 @@ services:
       timeout: 10s
       retries: 3
     restart: on-failure
+
+networks:
+  default:
+    external:
+      name: kong_iafoosball
