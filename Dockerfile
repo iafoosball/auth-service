@@ -1,7 +1,7 @@
 FROM golang:1.11.2-alpine
 
 RUN apk add --no-cache git build-base curl bash
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+RUN docker
 
 WORKDIR /go/src/github.com/iafoosball/auth-service
 

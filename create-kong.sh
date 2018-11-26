@@ -12,7 +12,7 @@ API=auth
 # "path": "/auth"}'
 # Create Service
 curl -i -X POST "http://$ADMIN_ADDR/services/" --header 'Content-Type: application/json' \
-     --data '{ "name": "'$API'-service", "host": "'$API'-service", "port": '$ADMIN_PORT', "protocol": "http", "path": "/" }'
+     --data '{ "name": "'$API'-service", "host": "'$API'-service", "port": '$ADMIN_PORT', "protocol": "https", "path": "/" }'
 # curl -i -X POST http://kong:8001/services/auth-service/routes --header 'Content-Type: application/json' --data '{"paths": ["/auth"], "strip_path": true}'
 # Create Route to service
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
