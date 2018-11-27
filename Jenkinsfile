@@ -13,12 +13,14 @@ pipeline {
         stage('deploy') {
             steps {
                 sh "docker-compose up"
+                sh "./create-kong.sh"
             }
         }
     }
     post {
        always {
             sh "docker-compose down -v --rmi 'all'"
+           sh "./delete-kong.sh"
         }
     }
 }
