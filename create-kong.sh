@@ -17,6 +17,9 @@ curl -i -X POST "http://$ADMIN_ADDR/services/" --header 'Content-Type: applicati
 # Create Route to service
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
      --data '{ "methods": ["GET", "POST"] }'
+# Add basic-auth plugin to auth-service (normal login)
+curl -i -X POST "http://$ADMIN_ADDR/services/${API}-service/plugins"
+     --data 'name=basic-auth'
 # curl -i -X POST http://kong:8001/upstreams --header 'Content-Type: application/json' --data '{"name": "auth-service"}'
 # Add UPSTREAM
 curl -i -X POST "http://$ADMIN_ADDR/upstreams/" --header 'Content-Type: application/json'  \
