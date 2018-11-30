@@ -14,15 +14,15 @@ type JWTValidator struct {
 	Port     int
 }
 
-// ValidateToken against remote auth-service.
-func (v JWTValidator) ValidateToken(token string) (bool, error) {
+// ValidateAuth against remote auth-service.
+func (v JWTValidator) ValidateAuth(authStr string) (bool, error) {
 	url := v.Protocol + "://" + v.Hostname + ":" + string(v.Port) + jwt.ValidateTokenPath
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
 		return false, err
 	}
-	req.Header.Set("Authorization", "JWT "+token)
+	req.Header.Set("Authorization", authStr)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
