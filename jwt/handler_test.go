@@ -8,6 +8,7 @@ import (
 )
 
 func TestSetRoutes(t *testing.T) {
+	basePath := "http://localhost:8001"
 	// ----------------- LOGIN
 	client := http.DefaultClient
 	req, err := http.NewRequest("POST", "http://localhost:8001/oauth/login", nil)
