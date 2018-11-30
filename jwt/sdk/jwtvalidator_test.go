@@ -52,7 +52,7 @@ func TestJWTValidator_ValidateToken(t *testing.T) {
 		Hostname: h,
 		Port: pInt,
 	}
-	if ok, _ := v.ValidateToken(j.Token); !ok {
+	if ok, _ := v.ValidateAuth("JWT "+j.Token); !ok {
 		t.Error("Validation failed on new token")
 	}
 
