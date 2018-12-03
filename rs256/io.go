@@ -7,9 +7,10 @@ import (
 	"io/ioutil"
 )
 
+// This should be a relative path, but using dot (.) makes tests in other packages loose file context.
 const (
-	PathToRSAPriv = "./rs256/id_rsa"
-	PathToRSAPub  = "./rs256/id_rsa_pub"
+	PathToRSAPriv = "/go/src/github.com/iafoosball/auth-service/rs256/id_rsa"
+	PathToRSAPub = "/go/src/github.com/iafoosball/auth-service/rs256/id_rsa_pub"
 )
 
 func MakeRSAKeysToDisk(password string) error {

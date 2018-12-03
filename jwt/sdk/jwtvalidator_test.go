@@ -10,13 +10,13 @@ import (
 	"testing"
 )
 
-func TestJWTValidator_ValidateToken(t *testing.T) {
-	// ----------------- CONFIG
-	hp := strings.Split(os.Getenv("SERVICE_ADDR"), ":")
-	h := hp[0]
-	p := hp[1]
-	basePath := "http://"+h+":"+p
+// ----------------- CONFIG
+var hp = strings.Split(os.Getenv("SERVICE_ADDR"), ":")
+var h = hp[0]
+var p = hp[1]
+var basePath = "http://"+h+":"+p
 
+func TestJWTValidator_ValidateToken(t *testing.T) {
 	// ----------------- LOGIN
 	client := http.DefaultClient
 	req, err := http.NewRequest("POST", basePath+"/oauth/login", nil)
@@ -52,10 +52,12 @@ func TestJWTValidator_ValidateToken(t *testing.T) {
 		Hostname: h,
 		Port: pInt,
 	}
-	if ok, _ := v.ValidateAuth("JWT "+j.Token); !ok {
+	if ok, err := v.ValidateAuth("JWT "+j.Token); !ok {
+		if err != nil {
+			t.Error(err)
+		}
 		t.Error("Validation failed on new token")
 	}
-
 	// ----------------- LOGOUT
 	req, err = http.NewRequest("POST", basePath+"/oauth/logout", nil)
 	if err != nil {
