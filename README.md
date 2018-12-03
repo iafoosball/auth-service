@@ -39,6 +39,7 @@ curl -X POST \
   http://iafoosball.me/oauth/login \
   -H 'Authorization: Basic dnlyd3U6dnlyd3U='
 
+Response:
 {
     "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk"
 }
