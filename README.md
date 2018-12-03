@@ -1,6 +1,6 @@
 # Oauth2.0 with JWT and social login (FB, Google)
 > Exchange user credentials or social login grant for JWT access token to IAfoosball services.  
-> Intro movie: https://app.hyfy.io/v/abnaOzc4fVn/
+> [Watch intro movie here.](https://drive.google.com/file/d/1CdyW0zIw3hhxeImpYjAcKRUpEIHJCsTu/view?usp=sharing)
 ## Flow
 ``` text
      +--------+                               +---------------+
