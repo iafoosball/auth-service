@@ -21,6 +21,7 @@
      +--------+                               +---------------+
 ```
 ## Endpoints
+*Base Path: `http://iafoosball.me`*
 ```
 Token access:
 POST /oauth/login
@@ -35,29 +36,33 @@ GET /oauth/google
 * Login with Basic Auth (issue token)
 ```bash
 curl -X POST \
-  http://iafoosball.dk/oauth/login \
+  http://iafoosball.me/oauth/login \
   -H 'Authorization: Basic dnlyd3U6dnlyd3U='
+
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk"
+}
 ```
 * Login with FB/Google
 ```bash
 curl -X GET \
-  http://iafoosball.dk/oauth/facebook
+  http://iafoosball.me/oauth/facebook
   
   or
   
 curl -X GET \
-  http://iafoosball.dk/oauth/google
+  http://iafoosball.me/oauth/google
 ```
 * Verify JWT
 ```bash
 curl -X POST \
-  http://iafoosball.dk/oauth/verify \
+  http://iafoosball.me/oauth/verify \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 * Logout (revoke token)
 ```bash
 curl -X POST \
-  http://iafoosball.dk/oauth/logout \
+  http://iafoosball.me/oauth/logout \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 
