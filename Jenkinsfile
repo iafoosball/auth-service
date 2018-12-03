@@ -12,13 +12,14 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "docker-compose up"
+                sh "docker-compose up -d"
+                sh "./create-kong.sh"
             }
         }
     }
     post {
        always {
-            sh "docker-compose down -v --rmi 'all'"
+            sh "docker system prune -f"
         }
     }
 }

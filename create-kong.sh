@@ -22,7 +22,6 @@ ROUTE_ID=`curl -s "http://$ADMIN_ADDR/services/$API-service/routes" | jq ".data[
 curl -i -X POST "http://$ADMIN_ADDR/routes/$ROUTE_ID/plugins" \
      --data 'name=basic-auth'
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
-     --data '{ "methods": ["POST", "GET"] }'
 
 # Add UPSTREAM
 curl -i -X POST "http://$ADMIN_ADDR/upstreams/" --header 'Content-Type: application/json'  \
