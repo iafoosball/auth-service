@@ -8,7 +8,9 @@ pipeline {
         stage('build') {
             steps {
                 sh "./delete-kong.sh"
+                sh "docker rm -f iafoosball_auth-service iafoosball_redis"
                 sh "docker-compose down --rmi='all'"
+                sh "docker container stop "
                 sh "docker-compose build --pull"
             }
         }
