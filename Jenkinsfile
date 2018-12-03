@@ -14,7 +14,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "docker-compose up -d"
+                sh "docker-compose up -d --force-recreate"
                 sh "./create-kong.sh"
             }
         }
