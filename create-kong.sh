@@ -21,6 +21,10 @@ ROUTE_ID=`curl -s "http://$ADMIN_ADDR/services/$API-service/routes" | jq ".data[
 curl -i -X POST "http://$ADMIN_ADDR/routes/$ROUTE_ID/plugins" \
      --data 'name=basic-auth'
 
+# Create Route to token verification, and strip path to hide it from client
+curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
+     --data '{ "paths": ["/oauth/verify"], "strip_path": true }'
+
 # Create Route for other endpoints
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
      --data '{ "paths": ["/"], "strip_path": false  }'
