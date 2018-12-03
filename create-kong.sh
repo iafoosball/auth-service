@@ -23,7 +23,7 @@ curl -i -X POST "http://$ADMIN_ADDR/routes/$ROUTE_ID/plugins" \
 
 # Create Route for other endpoints
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
-     --data '{ "methods": ["GET", "POST"], "strip_path": false  }'
+     --data '{ "paths": ["/"], "strip_path": false  }'
 
 # Add UPSTREAM
 curl -i -X POST "http://$ADMIN_ADDR/upstreams/" --header 'Content-Type: application/json'  \
