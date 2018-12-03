@@ -7,6 +7,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh "./delete-kong.sh"
+                sh "docker-compose down --rmi='all'"
                 sh "docker-compose build --pull"
             }
         }
