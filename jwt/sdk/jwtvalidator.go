@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/iafoosball/auth-service/jwt"
 	"net/http"
+	"strconv"
 )
 
 // JWTValidator constructor configures the connection with auth-service in order to validate incoming tokens in
@@ -16,7 +17,7 @@ type JWTValidator struct {
 
 // ValidateAuth against remote auth-service.
 func (v JWTValidator) ValidateAuth(authStr string) (bool, error) {
-	url := v.Protocol + "://" + v.Hostname + ":" + string(v.Port) + jwt.ValidateTokenPath
+	url := v.Protocol + "://" + v.Hostname + ":" + strconv.Itoa(v.Port) + jwt.ValidateTokenPath
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {

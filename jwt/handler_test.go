@@ -4,14 +4,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
+	"strings"
 	"testing"
 )
 
+// ----------------- CONFIG
+var hp = strings.Split(os.Getenv("SERVICE_ADDR"), ":")
+var h = hp[0]
+var p = hp[1]
+var basePath = "http://"+h+":"+p
+
 func TestSetRoutes(t *testing.T) {
-	basePath := "http://localhost:8001"
 	// ----------------- LOGIN
 	client := http.DefaultClient
-	req, err := http.NewRequest("POST", "http://localhost:8001/oauth/login", nil)
+	req, err := http.NewRequest("POST", basePath+"/oauth/login", nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -33,7 +40,7 @@ func TestSetRoutes(t *testing.T) {
 		t.Error(err)
 	}
 	st := jt.Token
-	req, err = http.NewRequest("POST", "http://localhost:8001/oauth/verify", nil)
+	req, err = http.NewRequest("POST", basePath+"/oauth/verify", nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -48,7 +55,7 @@ func TestSetRoutes(t *testing.T) {
 		t.Fail()
 	}
 	// ----------------- LOGOUT
-	req, err = http.NewRequest("POST", "http://localhost:8001/oauth/logout", nil)
+	req, err = http.NewRequest("POST", basePath+"/oauth/logout", nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -63,7 +70,7 @@ func TestSetRoutes(t *testing.T) {
 		t.Fail()
 	}
 	// ----------------- VERIFY REVOKED JWT
-	req, err = http.NewRequest("POST", "http://localhost:8001/oauth/verify", nil)
+	req, err = http.NewRequest("POST", basePath+"/oauth/verify", nil)
 	if err != nil {
 		t.Error(err)
 	}
