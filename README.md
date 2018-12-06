@@ -1,5 +1,4 @@
 # Oauth2.0 with JWT and social login (FB, Google)
-> Following (https://tools.ietf.org/html/rfc8252), Internet Best Current Practice  
 > Exchange user credentials or social login grant for JWT access token to IAfoosball services.  
 > [Watch intro movie here.](https://app.hyfy.io/v/abnaOzc4fVn/)
 >  
