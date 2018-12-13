@@ -4,8 +4,8 @@
 >  
 > Compliant with Internet Best Practices:  
 > [RFC 8252 - Oauth2.0 for Native Apps](https://tools.ietf.org/html/rfc8252)  
-> [RFC 7519 -  JSON Web Token (JWT)](https://tools.ietf.org/html/rfc8252)  
-> [RFC 7617 - The 'Basic' HTTP Authentication Scheme](https://tools.ietf.org/html/rfc8252)   
+> [RFC 7519 -  JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)  
+> [RFC 7617 - The 'Basic' HTTP Authentication Scheme](https://tools.ietf.org/html/rfc7617)   
 ## Flow
 ``` text
      +--------+                               +---------------+
