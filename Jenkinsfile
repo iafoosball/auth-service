@@ -9,12 +9,16 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh "./delete-kong.sh"
+                sh "docker-compose down --rmi='all'"
                 sh "docker-compose build --pull"
             }
         }
         stage('deploy') {
             steps {
-                sh "docker-compose up -d"
+                catchError {
+                    sh "docker-compose up -d --force-recreate"
+                }
                 sh "./create-kong.sh"
             }
         }
@@ -22,6 +26,10 @@ pipeline {
     post {
        always {
             sh "docker system prune -f"
+        }
+        
+       failure {
+            sh "docker rm -f iafoosball_auth-service iafoosball_redis"
         }
     }
 }
