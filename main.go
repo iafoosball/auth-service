@@ -11,13 +11,6 @@ import (
 	"os"
 )
 
-func SERVICE_ADDR() string {
-	var addr string
-	if addr = os.Getenv("SERVICE_ADDR"); addr == "" {
-		addr = "localhost:8001"
-	}
-	return addr
-}
 
 func main() {
 	defer fmt.Println("auth-service exited")
@@ -25,7 +18,7 @@ func main() {
 	r := mux.NewRouter()
 	r = jwt.SetRoutes(r)
 	r = social.SetRoutes(r)
-	http.ListenAndServe(SERVICE_ADDR(), r)
+	http.ListenAndServe(getEnv("SERVICE_ADDR", "localhost:8001"), r)
 }
 
 func initRSA(pathToKey string) {
@@ -38,4 +31,13 @@ func initRSA(pathToKey string) {
 			log.Fatal("Failed creating RSA keys: " + err.Error())
 		}
 	}
+}
+
+// getEnv returns environmental variable called name, or fallback if empty
+func getEnv(name string, fallback string) string {
+	v, ok := os.LookupEnv(name)
+	if ok {
+		return v
+	}
+	return fallback
 }

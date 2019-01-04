@@ -12,7 +12,7 @@ services:
     ports:
       - 8070:8070
     environment:
-      DB_ADDR: "redis:6379"
+      REDIS_ADDR: "redis:6379"
       SERVICE_ADDR: "0.0.0.0:8070"
     restart: on-failure
 

@@ -4,6 +4,7 @@ import (
 	"github.com/danilopolani/gocialite/structs"
 	"golang.org/x/oauth2"
 	"gopkg.in/danilopolani/gocialite.v0"
+	"os"
 )
 
 const baseURL = "http://localhost:8001"
@@ -11,6 +12,7 @@ const baseURL = "http://localhost:8001"
 var gocial = gocialite.NewDispatcher()
 
 // These credentials are old and revoked, please don't try to use them. Thanks!
+// Google ClientID and ClientSecret for Oauth2 has to be supplied by the app environment
 var providerSecrets = map[string]map[string]string{
 	"facebook": {
 		"clientID":     "111235093157542",
@@ -18,8 +20,8 @@ var providerSecrets = map[string]map[string]string{
 		"baseURL":      baseURL + "/auth/facebook/callback",
 	},
 	"google": {
-		"clientID":     "659698836120-dosqs9rtc1p8eqcnl2qdmjpu1ujef9l9.apps.googleusercontent.com",
-		"clientSecret": "6LaVZkuC01sQm9dq4a_laVfo",
+		"clientID":     getEnv("GOOGLE_OAUTH2_CLIENT_ID", ""),
+		"clientSecret": getEnv("GOOGLE_OAUTH2_CLIENT_SECRET", ""),
 		"baseURL":      baseURL + "/auth/google/callback",
 	},
 }
@@ -48,4 +50,13 @@ func RedirectURL(provider string) (string, error) {
 func ParseOauthResponse(state string, code string) (*structs.User, *oauth2.Token, error) {
 	user, token, err := gocial.Handle(state, code)
 	return user, token, err
+}
+
+// getEnv returns environmental variable called name, or fallback if empty
+func getEnv(name string, fallback string) string {
+	v, ok := os.LookupEnv(name)
+	if ok {
+		return v
+	}
+	return fallback
 }
