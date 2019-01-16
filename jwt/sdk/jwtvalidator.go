@@ -23,6 +23,7 @@ func (v JWTValidator) ValidateAuth(authStr string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+	req.Close = true
 	req.Header.Set("Authorization", authStr)
 
 	client := &http.Client{}
