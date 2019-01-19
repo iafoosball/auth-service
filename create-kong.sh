@@ -2,7 +2,8 @@
 # This file should be used only outside the running container (on host).
 
 API=auth
-SERVICE_ADDR=$API-service:8070
+API_PORT=8010
+SERVICE_ADDR=$API-service:$API_PORT
 
 ADMIN_HOSTNAME=localhost
 ADMIN_PORT=8051
@@ -10,7 +11,7 @@ ADMIN_ADDR=$ADMIN_HOSTNAME:$ADMIN_PORT
 
 # Create Service
 curl -i -X POST "http://$ADMIN_ADDR/services/" --header 'Content-Type: application/json' \
-     --data '{ "name": "'$API'-service", "host": "'$API'-service", "port": '$ADMIN_PORT', "protocol": "http", "path": "/" }'
+     --data '{ "name": "'$API'-service", "host": "'$API'-service", "port": '$API_PORT', "protocol": "http", "path": "/" }'
 
 # Create Route to login
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
@@ -27,7 +28,7 @@ curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Cont
 
 # Create Route for other endpoints
 curl -i -X POST "http://$ADMIN_ADDR/services/$API-service/routes" --header 'Content-Type: application/json' \
-     --data '{ "paths": ["/"], "strip_path": false  }'
+     --data '{ "paths": ["/oauth"], "strip_path": false  }'
 
 # Add UPSTREAM
 curl -i -X POST "http://$ADMIN_ADDR/upstreams/" --header 'Content-Type: application/json'  \
