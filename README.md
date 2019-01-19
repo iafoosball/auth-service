@@ -77,7 +77,6 @@ curl -X POST \
 * HTTPS
 * Social login (with github)
 * Better security (use multiple rotating private keys)
-* Better error handling (sometimes, it returns 500 instead of 401)
 * Logging
 * Staging and Production environments
 
