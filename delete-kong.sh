@@ -2,7 +2,8 @@
 # This file should be used only outside the running container (on host).
 
 API=auth
-SERVICE_ADDR=$API-service:8010
+API_PORT=8010
+SERVICE_ADDR=$API-service:$API_PORT
 
 ADMIN_HOSTNAME=localhost
 ADMIN_PORT=8051
