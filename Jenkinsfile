@@ -1,24 +1,24 @@
 pipeline {
     agent any
     environment {
-        COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
-        COMPOSE_FILE = "docker-compose.yml"
         GOOGLE_OAUTH2_CLIENT_ID = credentials('google-oauth2-client-id')
         GOOGLE_OAUTH2_CLIENT_SECRET = credentials('google-oauth2-client-secret')
     }
     stages {
-        stage('build') {
+        stage('Prepare stag env') {
             steps {
                 sh "./delete-kong.sh"
-                sh "docker-compose down --rmi='all'"
-                sh "docker-compose build --pull"
+                sh "docker rm -f auth-service auth-redis"
             }
         }
-        stage('deploy') {
+        stage('Build') {
             steps {
-                catchError {
-                    sh "docker-compose up -d --force-recreate"
-                }
+                sh "docker-compose build"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "docker-compose -p auth-stag up -d --force-recreate"
                 sh "./create-kong.sh"
             }
         }
@@ -26,10 +26,7 @@ pipeline {
     post {
        always {
             sh "docker system prune -f"
-        }
-        
-       failure {
-            sh "docker rm -f iafoosball_auth-service iafoosball_redis"
+            sh "docker-compose down --rmi='all'"
         }
     }
 }
