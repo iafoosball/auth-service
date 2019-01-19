@@ -27,7 +27,7 @@
      +--------+                               +---------------+
 ```
 ## Endpoints
-*Base Path: `http://iafoosball.me`*
+*Base Path: `http://iafoosball.me:8010`*
 ```
 Token access:
 POST /oauth/login
