@@ -13,7 +13,7 @@ import (
 var hp = strings.Split(os.Getenv("SERVICE_ADDR"), ":")
 var h = hp[0]
 var p = hp[1]
-var basePath = "http://"+h+":"+p
+var basePath = "http://" + h + ":" + p
 
 func TestSetRoutes(t *testing.T) {
 	// ----------------- LOGIN

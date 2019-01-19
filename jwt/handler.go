@@ -29,21 +29,29 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	if len(s) != 2 && s[0] != "Basic" {
 		log.Println("jwt/handler.go: Incorrect auth scheme")
 		w.WriteHeader(401)
-	} else {
-		d, err := base64.StdEncoding.DecodeString(s[1])
-		handleErr(err, w)
-
-		c := strings.Split(string(d), ":")
-
-		token, err := IssueNew(c[0])
-		handleErr(err, w)
-
-		payload, err := json.Marshal(token)
-		handleErr(err, w)
-
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(payload)
+		return
 	}
+
+	d, err := base64.StdEncoding.DecodeString(s[1])
+	if err != nil {
+		handleErr(err, w)
+		return
+	}
+	c := strings.Split(string(d), ":")
+
+	token, err := IssueNew(c[0])
+	if err != nil {
+		handleErr(err, w)
+		return
+	}
+	payload, err := json.Marshal(token)
+	if err != nil {
+		handleErr(err, w)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
 }
 
 func handleLogout(w http.ResponseWriter, r *http.Request) {
@@ -51,19 +59,19 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 	if len(s) != 2 && s[0] != "JWT" {
 		log.Println("jwt/handler.go: Incorrect auth scheme")
 		w.WriteHeader(401)
+		return
 	}
 
-	err := Revoke(s[1])
-
-	if err != nil {
+	if err := Revoke(s[1]); err != nil {
 		if err.Error() == "not found" {
 			w.WriteHeader(404)
 		} else {
 			handleErr(err, w)
 		}
-	} else {
-		w.WriteHeader(200)
+		return
 	}
+
+	w.WriteHeader(200)
 }
 
 func handleVerify(w http.ResponseWriter, r *http.Request) {
@@ -71,20 +79,26 @@ func handleVerify(w http.ResponseWriter, r *http.Request) {
 	if len(s) != 2 && s[0] != "JWT" {
 		log.Println("jwt/handler.go: Incorrect auth scheme")
 		w.WriteHeader(401)
+		return
 	}
 
 	ok, err := IsValid(s[1])
-	handleErr(err, w)
+	if err != nil {
+		handleErr(err, w)
+		return
+	}
 
 	if !ok {
 		log.Println("jwt/handler.go: JWT verification fail")
 		w.WriteHeader(401)
-	} else {
-		w.WriteHeader(200)
+		return
 	}
+
+	w.WriteHeader(200)
 }
 
 // handleErr that requires generic handling (usually unexpected errors)
+// error handling should be solved better (a lot of boilerplate code)
 func handleErr(err error, w http.ResponseWriter) {
 	if err != nil {
 		log.Println("jwt/handler.go: Error " + err.Error())
