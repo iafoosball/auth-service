@@ -25,8 +25,8 @@ pipeline {
     }
     post {
        always {
-            sh "docker system prune -f"
             sh "docker-compose down --rmi='all'"
+            sh "docker system prune -f"
         }
     }
 }
