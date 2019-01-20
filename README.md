@@ -74,9 +74,8 @@ curl -X POST \
 ```
 
 ## Coming soon
-* HTTPS
-* Social login (with github)
+* Social login with github
 * Better security (use multiple rotating private keys)
-* Logging
+* Logging 
 * Staging and Production environments
 
