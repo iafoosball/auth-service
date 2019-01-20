@@ -27,7 +27,8 @@
      +--------+                               +---------------+
 ```
 ## Endpoints
-*Base Path: `https://iafoosball.me:$KONG_HTTPS_PORT`*
+*Base Path: `https://iafoosball.me:$KONG_HTTPS_PORT`*  
+*, where $KONG_HTTPS_PORT is HTTPS access point for APIs behind KONG API Gateway*
 ```
 Token access:
 POST /oauth/login
