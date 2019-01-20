@@ -39,7 +39,7 @@ GET /oauth/facebook
 GET /oauth/google
 ```
 ## Examples
-* Login with Basic Auth (issue token)
+* Login with Basic Auth (issue token). Basic Auth HTTP Header value contains encoded Base64(username:password). 
 ```bash
 curl -X POST \
   http://iafoosball.me/oauth/login \
