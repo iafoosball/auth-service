@@ -43,7 +43,7 @@ GET /oauth/google
 * Login with Basic Auth (issue token). Basic Auth HTTP Header value contains authorization suite specification `Basic` and encoded `Base64(username:password)`. 
 ```bash
 curl -X POST \
-  http://iafoosball.me/oauth/login \
+  https://iafoosball.me:$KONG_HTTPS_PORT/oauth/login \
   -H 'Authorization: Basic dnlyd3U6dnlyd3U='
 
 Response:
@@ -54,23 +54,23 @@ Response:
 * Login with FB/Google
 ```bash
 curl -X GET \
-  http://iafoosball.me/oauth/facebook
+  https://iafoosball.me:$KONG_HTTPS_PORT/oauth/facebook
   
   or
   
 curl -X GET \
-  http://iafoosball.me/oauth/google
+  https://iafoosball.me:$KONG_HTTPS_PORT/oauth/google
 ```
 * Verify JWT
 ```bash
 curl -X POST \
-  http://iafoosball.me/oauth/verify \
+  https://iafoosball.me:$KONG_HTTPS_PORT/oauth/verify \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 * Logout (revoke token)
 ```bash
 curl -X POST \
-  http://iafoosball.me/oauth/logout \
+  https://iafoosball.me:$KONG_HTTPS_PORT/oauth/logout \
   -H 'Authorization: JWT eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJ2eXJ3dSIsImV4cCI6MTU0MTk2OTA4OCwianRpIjoiUlpHTEg2QTVPVyJ9.FWUhvRnszVHG3wcTq97i8RhezyZgmf3w3NYk50iYfmrnBoPSD0QMJxDl60gButJvENYdvp9dmAGti1F8S7rVHTFhGriPrEtrncBtpz1TGbvw0wNW1nmf6umC7F9DfcB71bDlXhH-sIRkHA5P0P9zPnsQCF1C9rAOXvQxsCp0FTk'
 ```
 
