@@ -27,7 +27,7 @@
      +--------+                               +---------------+
 ```
 ## Endpoints
-*Base Path: `http://iafoosball.me`*
+*Base Path: `https://iafoosball.me:$KONG_HTTPS_PORT`*
 ```
 Token access:
 POST /oauth/login
